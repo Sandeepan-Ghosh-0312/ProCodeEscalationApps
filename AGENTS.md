@@ -1,3 +1,19 @@
+## Section using images/docs
+Whenever you are using an asset in the app with src like image or document, shift it to assets folder under the root folder and import the asset into the file where it is used from the assets folder and wrap it in this function export function resolveAssetUrl(assetPath: string): string {
+  const scripts = document.getElementsByTagName('script');
+  let imageBaseUrl = '';
+  for (const script of scripts) {
+    if (script.src && script.src.includes('/assets/') && script.src.includes('.js')) {
+      const assetsIndex = script.src.indexOf('/assets/');
+      imageBaseUrl = script.src.substring(0, assetsIndex);
+      break;
+    }
+  }
+  console.log('resolved url', ${imageBaseUrl}${assetPath});
+  return ${imageBaseUrl}${assetPath};
+}
+
+## Section Action Schema contract
 Contract for creating action-schema.json
 {                                                                                                                    │
 │   "$schema": "http://json-schema.org/draft-07/schema#",                                                              │
@@ -137,10 +153,11 @@ Contract for creating action-schema.json
 │   }                                                                                                                  │
 │ }
 
+## Section Action Center Initialization
 When asked to add initialization code for Action Center, do the following
 add "@uipath/uipath-typescript" in package.json dependencies with file uipath-uipath-typescript-1.0.0-dev-actionApp.1.tgz present in the current folder.
-Then in the app, at the starting of the app, this code shoud execute
-sdk.taskEvents.getTaskDetailsFromActionCenter((data: any) => {
+Then in the app, at the starting of the app, this code shoud execute this code block
+[sdk.taskEvents.getTaskDetailsFromActionCenter((data: any) => {
       if (data.data) {
         setFormData(data.data);
       }
@@ -156,7 +173,8 @@ sdk.taskEvents.getTaskDetailsFromActionCenter((data: any) => {
         sdk.updateToken(data.newToken);
       }
     });
-    sdk.taskEvents.initializeInActionCenter();
+sdk.taskEvents.initializeInActionCenter();
+]
 
 create file uipath.ts in the root and add this code import { UiPath } from '@uipath/uipath-typescript';
 // initial declaration for initilaization event in Action Center
@@ -186,17 +204,3 @@ console.log('UiPath SDK initialized with runtime config');
 };
 export default sdk;
 now when user changes the form data call function sdk.taskEvents.dataChanged(updatedData); and when the buttons are clicked call sdk.taskEvents.completeTask('Accept', formData); where 'Accept' here is the corresponding outcome defined in the schema
-
-Whenever you are using an asset in the app with src like image or document, shift it to assets folder under the root folder and import it in the file where it is used and wrap it in this function export function resolveAssetUrl(assetPath: string): string {
-  const scripts = document.getElementsByTagName('script');
-  let imageBaseUrl = '';
-  for (const script of scripts) {
-    if (script.src && script.src.includes('/assets/') && script.src.includes('.js')) {
-      const assetsIndex = script.src.indexOf('/assets/');
-      imageBaseUrl = script.src.substring(0, assetsIndex);
-      break;
-    }
-  }
-  console.log('resolved url', ${imageBaseUrl}${assetPath});
-  return ${imageBaseUrl}${assetPath};
-}
