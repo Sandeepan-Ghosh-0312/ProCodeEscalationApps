@@ -8,3 +8,7 @@ This repo contains:
 - [templateWithImage](https://github.com/Sandeepan-Ghosh-0312/ProCodeEscalationApps/tree/templateWithImage)
 - [templateWithDoc](https://github.com/Sandeepan-Ghosh-0312/ProCodeEscalationApps/tree/templateWithDoc)
 - [templateWithDataFabricAndStorageBucketDoc](https://github.com/Sandeepan-Ghosh-0312/ProCodeEscalationApps/tree/templateWithDataFabricAndStorageBucketDoc)
+
+
+## Starter Prompt
+Kick-start your pro-code journey with [sampleStarterPrompt](https://github.com/Sandeepan-Ghosh-0312/ProCodeEscalationApps/blob/main/sampleStarterPrompt.txt)
