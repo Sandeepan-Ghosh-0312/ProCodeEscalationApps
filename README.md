@@ -2,7 +2,7 @@
 
 This repo contains:
 - Starter Templates with Solutions (plug and play)
-- Starter Prompts and context in AGENTS.MD (Create escalation apps from scratch with AI assistance)
+- Starter Prompts and context in [AGENTS.md](https://github.com/Sandeepan-Ghosh-0312/ProCodeEscalationApps/blob/main/AGENTS.md) (Create escalation apps from scratch with AI assistance)
 
 ## Starter Templates
 - [templateWithImage](https://github.com/Sandeepan-Ghosh-0312/ProCodeEscalationApps/tree/templateWithImage)
