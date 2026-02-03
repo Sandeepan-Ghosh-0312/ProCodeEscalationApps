@@ -1,6 +1,6 @@
 import { useState, useEffect, ChangeEvent, FormEvent, KeyboardEvent } from 'react';
 import './Form.css';
-import sdk, { initializeSdk } from '../uipath';
+import sdk from '../uipath';
 import { Document, Page, pdfjs } from 'react-pdf';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
@@ -58,22 +58,13 @@ const Form = () => {
         setFormData(data.data);
       }
 
-      if (data.baseUrl && data.orgName && data.tenantName && data.token) {
-        initializeSdk({
-          baseUrl: data.baseUrl,
-          orgName: data.orgName,
-          tenantName: data.tenantName,
-          token: data.token
-        });
-      }
-
-      if (data.newToken) {
-        sdk.updateToken(data.newToken);
-      }
-
       setActionCenterData(data);
     });
-    sdk.taskEvents.initializeInActionCenter();
+    sdk.taskEvents.initializeInActionCenter('b23b2750-30f2-4176-8f95-318446833a98', 'OR.Administration.Read OR.Jobs DataFabric.Data.Read DataFabric.Schema.Read offline_access');
+
+    return () => {
+      sdk.taskEvents.cleanup();
+    }
   }, []);
 
   // Load loan history data only when switching to applicant tab
