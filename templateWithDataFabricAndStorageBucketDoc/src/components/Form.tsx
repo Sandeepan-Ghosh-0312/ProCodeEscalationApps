@@ -60,7 +60,7 @@ const Form = () => {
 
       setActionCenterData(data);
     });
-    sdk.taskEvents.initializeInActionCenter('b23b2750-30f2-4176-8f95-318446833a98', 'OR.Administration.Read OR.Jobs DataFabric.Data.Read DataFabric.Schema.Read offline_access');
+    sdk.taskEvents.initializeInActionCenter('b23b2750-30f2-4176-8f95-318446833a98', 'OR.Administration.Read OR.Jobs.Read OR.Users DataFabric.Data.Read DataFabric.Schema.Read offline_access');
 
     return () => {
       sdk.taskEvents.cleanup();
