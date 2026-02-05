@@ -6,6 +6,7 @@ import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 import { resolveAssetUrl } from './utils';
 import companyLogo  from '../assets/react.svg'
+import { ActionCenterData } from '@uipath/uipath-typescript';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
@@ -53,9 +54,9 @@ const Form = () => {
   const [folderId, setFolderId] = useState<any>(null);
 
   useEffect(() => {
-    sdk.taskEvents.getTaskDetailsFromActionCenter((data: any) => {
+    sdk.taskEvents.getTaskDetailsFromActionCenter((data: ActionCenterData) => {
       if (data.data) {
-        setFormData(data.data);
+        setFormData(data.data as FormData);
       }
 
       if (data.organizationUnitId) {
