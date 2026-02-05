@@ -50,7 +50,7 @@ const Form = () => {
   const [documentUrl, setDocumentUrl] = useState<string>('');
   const [isLoadingDocument, setIsLoadingDocument] = useState(false);
   const [hasLoadedDocument, setHasLoadedDocument] = useState(false);
-  const [actionCenterData, setActionCenterData] = useState<any>(null);
+  const [folderId, setFolderId] = useState<any>(null);
 
   useEffect(() => {
     sdk.taskEvents.getTaskDetailsFromActionCenter((data: any) => {
@@ -58,7 +58,9 @@ const Form = () => {
         setFormData(data.data);
       }
 
-      setActionCenterData(data);
+      if (data.organizationUnitId) {
+        setFolderId(data.organizationUnitId);
+      }
     });
     sdk.taskEvents.initializeInActionCenter();
 
@@ -111,8 +113,8 @@ const Form = () => {
     if (activeTab === 'application' && !hasLoadedDocument && !isLoadingDocument && formData) {
       const loadDocument = async () => {
         // Check if required data is available
-        console.log('loading doc', formData, actionCenterData);
-        if (formData.loanDocumentStorageBucket && actionCenterData.organizationUnitId && formData.loanDocumentFilePath) {
+        console.log('loading doc', formData, folderId);
+        if (formData.loanDocumentStorageBucket && folderId && formData.loanDocumentFilePath) {
           try {
             setIsLoadingDocument(true);
             console.log('Fetching buckets...');
@@ -128,7 +130,7 @@ const Form = () => {
               console.log('Found bucket:', bucket);
               const readUri = await sdk.buckets.getReadUri({
                 bucketId: bucket.id,
-                folderId: actionCenterData.organizationUnitId,
+                folderId: folderId,
                 path: formData.loanDocumentFilePath
               });
               console.log('Read URI:', readUri);
@@ -148,7 +150,7 @@ const Form = () => {
 
       loadDocument();
     }
-  }, [activeTab, hasLoadedDocument, isLoadingDocument, formData, actionCenterData]);
+  }, [activeTab, hasLoadedDocument, isLoadingDocument, formData, folderId]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
