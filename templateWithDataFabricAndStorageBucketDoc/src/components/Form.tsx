@@ -6,7 +6,7 @@ import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 import { resolveAssetUrl } from './utils';
 import companyLogo  from '../assets/react.svg'
-import { ActionCenterData } from '@uipath/uipath-typescript';
+import { ActionCenterData, MessageTypes } from '@uipath/uipath-typescript';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
@@ -142,6 +142,7 @@ const Form = () => {
             setHasLoadedDocument(true);
           } catch (error) {
             console.error('Error fetching document URL:', error);
+            sdk.taskEvents.displayMessage('Error fetching document ' + error, MessageTypes.error);
             setHasLoadedDocument(true);
           } finally {
             setIsLoadingDocument(false);
